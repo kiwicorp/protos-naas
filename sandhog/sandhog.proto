@@ -4,11 +4,6 @@ option go_package = "github.com/selftechio/sandhog/internal/api/sandhog";
 
 package selftechio.sandhog;
 
-enum Result {
-  OK = 0;
-  NOTOK = 1;
-}
-
 // A sandhog peer.
 message SandhogPeer {
   string          public_key           = 1;
@@ -22,25 +17,21 @@ message SandhogPeer {
   }
 }
 
-// Request a sandhog to create a new tunnel.
-message StartTunnelRequest {
-  // the name of the tunnel
-  string name    = 1;
-  // the address of the tunnel
-  string address = 2;
-  //
-
+message StartTunnelNegotiationsRequest {
+  // each tunnel has its own uuid.
+  string tunnel_uuid = 1;
+  // each tunnel has its own name.
+  string tunnel_name = 2;
 }
 
-// A response from a sandhog that was requested to create a tunnel.
-message StartTunnelResponse {
-  Result result       = 1;
-  oneof tunnel {
-    SandhogPeer tunnel_specs = 2;
-  }
+message StartTunnelNegotiationsResponse {
+  // each sandhog will generate a new uuid for each tunnel.
+  string sandhog_uuid     = 1;
+  // sandhogs will be differentiated by their hostnames, too.
+  string sandhog_hostname = 2;
 }
 
 service Sandhog {
-  // Tell sandhog to start a new tunnel.
-  rpc StartTunnel(StartTunnelRequest) returns (StartTunnelResponse) {}
+  // Initiate tunnel negotiations with a sandhog.
+  rpc StartTunnelNegotiations(StartTunnelNegotiationsRequest) returns (StartTunnelNegotiationsResponse) {}
 }
