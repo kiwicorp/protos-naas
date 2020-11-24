@@ -4,7 +4,7 @@ option go_package = "github.com/selftechio/sandhog/internal/api/naas";
 
 package selftechio.naas;
 
-import "naas/common.proto";
+import "selftechio/naas/common.proto";
 
 // Information about a sandhog.
 message SandhogInfo {
