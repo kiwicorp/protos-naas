@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/selftechio/sandhog/internal/api/naas";
+
+package selftechio.naas;
+
+// A request result.
+enum Result {
+  OK    = 0;
+  NOTOK = 1;
+}
+
+// A request status.
+message Status {
+  Result result = 1;
+  oneof err {
+    string err_msg = 2;
+  }
+}

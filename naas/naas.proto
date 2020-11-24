@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option go_package = "github.com/selftechio/sandhog/internal/api/naas";
+
+package selftechio.naas;
+
+import "naas/common.proto";
+
+// Information about a sandhog.
+message SandhogInfo {
+  string uuid = 1;
+  string hostname = 2;
+}
+
+// A request made by a sandhog to register itself in the registry.
+message RegisterRequest {
+  SandhogInfo info = 1;
+}
+
+// A response received by the sandhog from the registry upon registering.
+message RegisterResponse {
+  Status status = 1;
+}
+
+// The registry service definition.
+service Registry {
+  // Register the sandhog in the registry.
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+}
